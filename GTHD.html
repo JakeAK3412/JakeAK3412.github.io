@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canadian Taxpayers Federation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #FF0000;
+      color: #FFFFFF;
+    }
+
+    .logo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .form-container {
+      width: 50%;
+      margin: 0 auto; /* Center the form horizontally */
+    }
+
+    .btn-primary {
+      background-color: #000000;
+      border-color: #000000;
+    }
+
+    .btn-primary:hover {
+      background-color: #111111;
+      border-color: #111111;
+    }
+
+    /* Set text color in modal */
+    .modal-content {
+      color: #000000;
+    }
+
+    /* Show/hide city input */
+    .hidden {
+      display: none;
+    }
+
+    /* Hide label for city */
+    .hidden-label {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="ctflogo.png" alt="Logo" class="logo">
+  <div class="container mt-5">
+    <div class="form-container">
+      <h2>Gas Tax Honesty Calculator</h2>
+      <form id="taxForm">
+        <div class="row mb-3">
+          <div class="col">
+            <label for="amount">Dollar Amount:</label>
+            <input type="number" class="form-control" id="amount" required>
+          </div>
+          <div class="col">
+            <label for="litre">Litre Amount:</label>
+            <input type="number" class="form-control" id="litre" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="province">Province:</label>
+          <select class="form-control" id="province" required>
+            <option value="" selected disabled>Select Province</option>
+            <option value="AB">Alberta</option>
+            <option value="BC">British Columbia</option>
+            <option value="MB">Manitoba</option>
+            <option value="NB">New Brunswick</option>
+            <option value="NL">Newfoundland and Labrador</option>
+            <option value="NS">Nova Scotia</option>
+            <option value="ON">Ontario</option>
+            <option value="PE">Prince Edward Island</option>
+            <option value="QC">Quebec</option>
+            <option value="SK">Saskatchewan</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="cityGroup">
+          <label for="city" class="hidden-label">City/Region:</label>
+          <select class="form-control hidden" id="city"></select>
+        </div>
+
+        <div class="form-group">
+          <label for="fuel">Fuel Type:</label><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="diesel">
+            <label class="form-check-label" for="diesel">Diesel</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="regular">
+            <label class="form-check-label" for="regular">Regular</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email">
+        </div>
+
+        <div class="form-group">
+          <label for="postalCode">Postal Code:</label>
+          <input type="text" class="form-control" id="postalCode">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal content here -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.getElementById("province").addEventListener("change", function () {
+      var cityGroup = document.getElementById("cityGroup");
+      var cityInput = document.getElementById("city");
+      var cityLabel = document.querySelector(".hidden-label");
+
+      var selectedProvince = this.value;
+
+      if (selectedProvince === "QC") {
+        cityGroup.style.display = "block";
+        cityInput.className = "form-control";
+
+        cityInput.innerHTML = "";
+        var montrealOption = document.createElement("option");
+        montrealOption.text = "Montreal";
+        cityInput.add(montrealOption);
+
+        var restOfQuebecOption = document.createElement("option");
+        restOfQuebecOption.text = "Rest of Quebec";
+        cityInput.add(restOfQuebecOption);
+
+        cityLabel.style.display = "block";
+      } else if (selectedProvince === "BC") {
+        cityGroup.style.display = "block";
+        cityInput.className = "form-control";
+
+        cityInput.innerHTML = "";
+        var vancouverOption = document.createElement("option");
+        vancouverOption.text = "Vancouver";
+        cityInput.add(vancouverOption);
+
+        var victoriaOption = document.createElement("option");
+        victoriaOption.text = "Victoria";
+        cityInput.add(victoriaOption);
+
+        var restOfBCOption = document.createElement("option");
+        restOfBCOption.text = "Rest of BC";
+        cityInput.add(restOfBCOption);
+
+        cityLabel.style.display = "block";
+      } else {
+        cityGroup.style.display = "none";
+        cityInput.className = "form-control hidden";
+        cityLabel.style.display = "none";
+      }
+    });
+  </script>
+</body>
+
+</html>
