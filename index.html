@@ -59,7 +59,7 @@
       height: 100%;
       background-image: url(gaspump.jpg);
       background-size: cover;
-      opacity: 0.75;
+      opacity: 0.50;
       z-index: 1;
     }
 
@@ -87,7 +87,7 @@
           </select>
           </div>
           <div class="col">
-            <label for="litre">Price Per Litre:</label>
+            <label for="litre">Price Per Litre (cents):</label>
             <input type="number" class="form-control" id="litre" required>
           </div>
         </div>
@@ -136,7 +136,7 @@
           <input type="text" class="form-control" id="postalCode">
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
       </form>
     </div>
   </div>
@@ -155,6 +155,8 @@
         <div class="modal-body">
           <p id="paymentAmount"></p>
           <p id="taxAmount"></p>
+          <p id="carbonTaxAmount"></p>
+          <p id="fedExciseTax"></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
