@@ -2,10 +2,10 @@
 function calculateCarbonTax(selectedProvince, isDiesel){
       if(selectedProvince == "QC"){
         if (isDiesel){
-          return 0.10;
+          return 0.125;
         }
         else{
-          return 0.07;
+          return 0.099;
         }
       }
       else{
@@ -22,13 +22,13 @@ function calculateCarbonTax(selectedProvince, isDiesel){
 function calculateDiesel(dollarAmount, litreAmount, selectedProvince) {
   // Define the tax rates for each province (in decimal format)
   const taxRates = {
-    AB: 0.13, // Alberta
+    AB: 0, // Alberta
     BC: 0.15, // British Columbia
     MB: 0.14, // Manitoba
     NB: 0.15, // New Brunswick
     NL: 0.15, // Newfoundland and Labrador
     NS: 0.15, // Nova Scotia
-    ON: 0.13, // Ontario
+    ON: 0.09, // Ontario
     PE: 0.15, // Prince Edward Island
     QC: 0.14975, // Quebec
     SK: 0.15, // Saskatchewan
@@ -46,13 +46,13 @@ function calculateDiesel(dollarAmount, litreAmount, selectedProvince) {
 function calculateRegular(dollarAmount, litreAmount, selectedProvince) {
   // Define the tax rates for each province (in decimal format)
   const taxRates = {
-    AB: 0.10, // Alberta
+    AB: 0, // Alberta
     BC: 0.12, // British Columbia
     MB: 0.11, // Manitoba
     NB: 0.12, // New Brunswick
     NL: 0.12, // Newfoundland and Labrador
     NS: 0.12, // Nova Scotia
-    ON: 0.10, // Ontario
+    ON: 0.09, // Ontario
     PE: 0.12, // Prince Edward Island
     QC: 0.11975, // Quebec
     SK: 0.12, // Saskatchewan
@@ -98,14 +98,17 @@ function calculateTax() {
     carbonTaxAmount = calculateCarbonTax(selectedProvince, false);
     fedExciseAmount = 0.10;
   } else {
-    alert("Please select either Diesel or Regular.");
-    return;
+    const litreAmount = litreAmounts[selectedVehicle];
+    taxAmount = calculateRegular(dollarAmount, litreAmount, selectedProvince);
+    carbonTaxAmount = calculateCarbonTax(selectedProvince, false);
+    fedExciseAmount = 0.10;
   }
 
-  document.getElementById("paymentAmount").textContent = "Total: $" + (dollarAmount + taxAmount).toFixed(2);
+  
   document.getElementById("taxAmount").textContent = "Provincial Excise Tax: $" + taxAmount.toFixed(2);
   document.getElementById("carbonTaxAmount").textContent = "Carbon Tax: $" + (dollarAmount * carbonTaxAmount).toFixed(2);
   document.getElementById("fedExciseTax").textContent = "Federal Excise Tax: $" + (litreAmounts[selectedVehicle] * fedExciseAmount).toFixed(2);
+  document.getElementById("paymentAmount").textContent = "Total: $" + (dollarAmount + taxAmount).toFixed(2);
 }
 
 
