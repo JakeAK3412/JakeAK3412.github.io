@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt Example</title>
+  <style>
+    body {
+      background-color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .receipt-wrapper {
+      display: flex;
+      justify-content: space-between;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .receipt {
+      flex: 1;
+      margin: 0 10px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f8f8f8;
+    }
+
+    .receipt-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 0;
+    }
+
+    .receipt-line {
+      margin: 10px 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+
+    .receipt-details {
+      margin-top: 20px;
+    }
+
+    .receipt-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: #000;
+    }
+
+    .receipt-label {
+      font-weight: bold;
+    }
+
+    .receipt-value::before {
+      content: "$";
+    }
+
+    .receipt-placeholder {
+      color: #999;
+    }
+
+    .receipt-red {
+      color: #f00;
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt-wrapper">
+    <div id="receipt-taxes-now" class="receipt">
+      <h2 class="receipt-title">Taxes Now</h2>
+      <hr class="receipt-line">
+      <div class="receipt-details">
+        <div class="receipt-item">
+          <span class="receipt-label">Tax Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="taxAmountNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Carbon Tax Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="carbonTaxAmountNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Federal Excise Tax:</span>
+          <span class="receipt-value receipt-placeholder" id="fedExciseTaxNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">PST Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="pstAmountNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">GST Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="gstAmountNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Payment Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="paymentAmountNow">0.00</span>
+        </div>
+      </div>
+    </div>
+    <div id="receipt-taxes-future" class="receipt">
+      <h2 class="receipt-title">Gas Taxes in 2030</h2>
+      <hr class="receipt-line">
+      <div class="receipt-details">
+        <div class="receipt-item">
+          <span class="receipt-label">Tax Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="taxAmountFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Carbon Tax Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="carbonTaxAmountFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Federal Excise Tax:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="fedExciseTaxFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">PST Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="pstAmountFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">GST Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="gstAmountFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Payment Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="paymentAmountFuture">0.00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

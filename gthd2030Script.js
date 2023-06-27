@@ -38,12 +38,12 @@ const taxRates = {
 const taxRate = taxRates[selectedProvince];
 
 // Calculate the tax amount for diesel
-const taxAmount = (dollarAmount + litreAmount) * taxRate;
+const taxAmount = litreAmount * taxRate;
 
 return taxAmount;
 }
 
-function calculateRegular(dollarAmount, litreAmount, selectedProvince) {
+function calculateRegular(litreAmount, selectedProvince) {
 // Define the tax rates for each province (in decimal format)
 const taxRates = {
   AB: 0, // Alberta
@@ -62,7 +62,7 @@ const taxRates = {
 const taxRate = taxRates[selectedProvince];
 
 // Calculate the tax amount for regular
-const taxAmount = (dollarAmount + litreAmount) * taxRate;
+const taxAmount = litreAmount * taxRate;
 
 return taxAmount;
 }
@@ -77,7 +77,7 @@ const selectedVehicle = vehicleSelect.value;
 // Define the litre amounts for each type of vehicle
 const litreAmounts = {
   Car: 50,
-  Truck: 80,
+  Truck: 100,
   Van: 60,
   SUV: 70,
 };
@@ -85,28 +85,28 @@ const litreAmounts = {
 const dollarAmountInput = document.getElementById("litre");
 const dollarAmount = parseFloat(dollarAmountInput.value);
 
-let taxAmount;
+let taxAmount, litreAmount;
 
 if (document.getElementById("diesel").checked) {
-  const litreAmount = litreAmounts[selectedVehicle];
-  taxAmount = calculateDiesel(dollarAmount, litreAmount, selectedProvince);
+  litreAmount = litreAmounts[selectedVehicle];
+  taxAmount = calculateDiesel(litreAmount, selectedProvince);
   carbonTaxAmount = calculateCarbonTax2030(selectedProvince, true);
   fedExciseAmount = 0.04;
 } else if (document.getElementById("regular").checked) {
-  const litreAmount = litreAmounts[selectedVehicle];
-  taxAmount = calculateRegular(dollarAmount, litreAmount, selectedProvince);
+  litreAmount = litreAmounts[selectedVehicle];
+  taxAmount = calculateRegular(litreAmount, selectedProvince);
   carbonTaxAmount = calculateCarbonTax2030(selectedProvince, false);
   fedExciseAmount = 0.10;
 } else {
-  const litreAmount = litreAmounts[selectedVehicle];
-  taxAmount = calculateRegular(dollarAmount, litreAmount, selectedProvince);
+  litreAmount = litreAmounts[selectedVehicle];
+  taxAmount = calculateRegular(litreAmount, selectedProvince);
   carbonTaxAmount = calculateCarbonTax2030(selectedProvince, false);
   fedExciseAmount = 0.10;
 }
 
 
 document.getElementById("taxAmount2030").textContent = "Provincial Excise Tax: $" + taxAmount.toFixed(2);
-document.getElementById("carbonTaxAmount2030").textContent = "Carbon Tax: $" + (dollarAmount * carbonTaxAmount).toFixed(2);
+document.getElementById("carbonTaxAmount2030").textContent = "Carbon Tax: $" + (litreAmount * carbonTaxAmount).toFixed(2);
 document.getElementById("fedExciseTax2030").textContent = "Federal Excise Tax: $" + (litreAmounts[selectedVehicle] * fedExciseAmount).toFixed(2);
 document.getElementById("paymentAmount2030").textContent = "Total: $" + (dollarAmount + taxAmount).toFixed(2);
 }

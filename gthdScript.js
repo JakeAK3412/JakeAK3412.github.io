@@ -19,50 +19,51 @@ function calculateCarbonTax(selectedProvince, isDiesel){
 }
 
 
-function calculateDiesel(dollarAmount, litreAmount, selectedProvince) {
+function calculateDiesel(litreAmount, selectedProvince) {
   // Define the tax rates for each province (in decimal format)
-  const taxRates = {
+  var taxRates = {
     AB: 0, // Alberta
-    BC: 0.15, // British Columbia
+    BC: 0.15, // British Columbia CHANGE FOR VANCOUVER AGAIN
     MB: 0.14, // Manitoba
-    NB: 0.15, // New Brunswick
-    NL: 0.15, // Newfoundland and Labrador
-    NS: 0.15, // Nova Scotia
+    NB: 0.155, // New Brunswick
+    NL: 0.095, // Newfoundland and Labrador
+    NS: 0.154, // Nova Scotia
     ON: 0.09, // Ontario
-    PE: 0.15, // Prince Edward Island
-    QC: 0.14975, // Quebec
+    PE: 0.142, // Prince Edward Island
+    QC: 0.202, // Quebec
     SK: 0.15, // Saskatchewan
   };
 
   // Get the tax rate based on the selected province
-  const taxRate = taxRates[selectedProvince];
+  var taxRate = taxRates[selectedProvince];
 
-  // Calculate the tax amount for diesel
-  const taxAmount = (dollarAmount + litreAmount) * taxRate;
+  // Calculate the tax amount for regular
+  const taxAmount = litreAmount * taxRate;
 
   return taxAmount;
 }
 
-function calculateRegular(dollarAmount, litreAmount, selectedProvince) {
+
+function calculateRegular(litreAmount, selectedProvince) {
   // Define the tax rates for each province (in decimal format)
-  const taxRates = {
+  var taxRates = {
     AB: 0, // Alberta
-    BC: 0.12, // British Columbia
-    MB: 0.11, // Manitoba
-    NB: 0.12, // New Brunswick
-    NL: 0.12, // Newfoundland and Labrador
-    NS: 0.12, // Nova Scotia
+    BC: 0.145, // British Columbia CHANGE FOR VANCOUVER REMEMBER
+    MB: 0.14, // Manitoba
+    NB: 0.109, // New Brunswick
+    NL: 0.075, // Newfoundland and Labrador
+    NS: 0.155, // Nova Scotia
     ON: 0.09, // Ontario
     PE: 0.12, // Prince Edward Island
-    QC: 0.11975, // Quebec
-    SK: 0.12, // Saskatchewan
+    QC: 0.192, // Quebec
+    SK: 0.15, // Saskatchewan
   };
 
   // Get the tax rate based on the selected province
-  const taxRate = taxRates[selectedProvince];
+  var taxRate = taxRates[selectedProvince];
 
   // Calculate the tax amount for regular
-  const taxAmount = (dollarAmount + litreAmount) * taxRate;
+  const taxAmount = litreAmount * taxRate;
 
   return taxAmount;
 }
@@ -77,7 +78,7 @@ function calculateTax() {
   // Define the litre amounts for each type of vehicle
   const litreAmounts = {
     Car: 50,
-    Truck: 80,
+    Truck: 100,
     Van: 60,
     SUV: 70,
   };
@@ -85,30 +86,43 @@ function calculateTax() {
   const dollarAmountInput = document.getElementById("litre");
   const dollarAmount = parseFloat(dollarAmountInput.value);
 
-  let taxAmount;
+  let taxAmount, litreAmount;
 
   if (document.getElementById("diesel").checked) {
-    const litreAmount = litreAmounts[selectedVehicle];
-    taxAmount = calculateDiesel(dollarAmount, litreAmount, selectedProvince);
+    console.log("Diesel");
+    litreAmount = litreAmounts[selectedVehicle];
+    console.log(litreAmount);
+    console.log(selectedProvince);
+    taxAmount = calculateDiesel(litreAmount, selectedProvince);
     carbonTaxAmount = calculateCarbonTax(selectedProvince, true);
     fedExciseAmount = 0.04;
   } else if (document.getElementById("regular").checked) {
-    const litreAmount = litreAmounts[selectedVehicle];
-    taxAmount = calculateRegular(dollarAmount, litreAmount, selectedProvince);
+    console.log("Regular");
+    litreAmount = litreAmounts[selectedVehicle];
+    taxAmount = calculateRegular(litreAmount, selectedProvince);
     carbonTaxAmount = calculateCarbonTax(selectedProvince, false);
     fedExciseAmount = 0.10;
   } else {
-    const litreAmount = litreAmounts[selectedVehicle];
-    taxAmount = calculateRegular(dollarAmount, litreAmount, selectedProvince);
+    console.log("else");
+    litreAmount = litreAmounts[selectedVehicle];
+    taxAmount = calculateRegular(litreAmount, selectedProvince);
     carbonTaxAmount = calculateCarbonTax(selectedProvince, false);
     fedExciseAmount = 0.10;
   }
-
+  
   
   document.getElementById("taxAmount").textContent = "Provincial Excise Tax: $" + taxAmount.toFixed(2);
-  document.getElementById("carbonTaxAmount").textContent = "Carbon Tax: $" + (dollarAmount * carbonTaxAmount).toFixed(2);
+  document.getElementById("carbonTaxAmount").textContent = "Carbon Tax: $" + (litreAmount * carbonTaxAmount).toFixed(2);
   document.getElementById("fedExciseTax").textContent = "Federal Excise Tax: $" + (litreAmounts[selectedVehicle] * fedExciseAmount).toFixed(2);
   document.getElementById("paymentAmount").textContent = "Total: $" + (dollarAmount + taxAmount).toFixed(2);
+
+  document.getElementById("taxAmount2030").textContent = "Provincial Excise Tax: $" + taxAmount.toFixed(2);
+  document.getElementById("carbonTaxAmount2030").textContent = "Carbon Tax: $" + (litreAmount * carbonTaxAmount).toFixed(2);
+  document.getElementById("fedExciseTax2030").textContent = "Federal Excise Tax: $" + (litreAmounts[selectedVehicle] * fedExciseAmount).toFixed(2);
+  document.getElementById("paymentAmount2030").textContent = "Total: $" + (dollarAmount + taxAmount).toFixed(2);
+
+
+
 }
 
 
