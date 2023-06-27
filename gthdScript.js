@@ -79,7 +79,7 @@ function calculateTax() {
   const litreAmounts = {
     Car: 50,
     Truck: 100,
-    Van: 60,
+    Van: 70,
     SUV: 70,
   };
 
