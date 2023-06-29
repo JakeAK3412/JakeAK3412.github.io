@@ -65,7 +65,14 @@
     .receipt-red {
       color: #f00;
     }
+
+    .chart-container {
+      width: 400px;
+      height: 300px;
+      margin: 20px auto;
+    }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="receipt-wrapper">
@@ -130,5 +137,67 @@
       </div>
     </div>
   </div>
+  <div class="chart-container">
+    <canvas id="taxChart"></canvas>
+  </div>
+
+  <script>
+
+    chart = new Chart(document.getElementById('taxChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ["2023", "2030"],
+            datasets: [
+                {
+                    label: 'Carbon Taxes',
+                    data: [17, 48],
+                    backgroundColor: 'red',
+                },
+                {
+                    label: 'Provincial Excise Tax',
+                    data: [13, 13],
+                    backgroundColor: 'yellow',
+                },
+                {
+                    label: 'Federal Excise Tax',
+                    data: [10, 10],
+                    backgroundColor: 'orange',
+                },
+                {
+                    label: 'PST',
+                    data: [0, 0],
+                    backgroundColor: 'green',
+                },
+                {
+                    label: 'GST',
+                    data: [7.5, 7.5],
+                    backgroundColor: 'purple',
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Carbon Taxes 2023 vs 2030',
+                    font: {
+                        size: 14
+                    }
+                },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
+    });
+    </script>
+
 </body>
 </html>
