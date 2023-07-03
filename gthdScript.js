@@ -110,6 +110,7 @@ function calculateTax() {
     fedExciseAmount = 0.10;
   }
   
+  const carbonTaxAmount2030 = 0.486;
   
   document.getElementById("taxAmount").textContent = "Provincial Excise Tax: $" + taxAmount.toFixed(2);
   document.getElementById("carbonTaxAmount").textContent = "Carbon Tax: $" + (litreAmount * carbonTaxAmount).toFixed(2);
@@ -117,7 +118,7 @@ function calculateTax() {
   document.getElementById("paymentAmount").textContent = "Total: $" + (dollarAmount + taxAmount).toFixed(2);
 
   document.getElementById("taxAmount2030").textContent = "Provincial Excise Tax: $" + taxAmount.toFixed(2);
-  document.getElementById("carbonTaxAmount2030").textContent = "Carbon Tax: $" + (litreAmount * carbonTaxAmount).toFixed(2);
+  document.getElementById("carbonTaxAmount2030").textContent = "Carbon Tax: $" + (litreAmount * carbonTaxAmount2030).toFixed(2);
   document.getElementById("fedExciseTax2030").textContent = "Federal Excise Tax: $" + (litreAmounts[selectedVehicle] * fedExciseAmount).toFixed(2);
   document.getElementById("paymentAmount2030").textContent = "Total: $" + (dollarAmount + taxAmount).toFixed(2);
 
