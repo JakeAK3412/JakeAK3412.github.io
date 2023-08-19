@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt Example</title>
+  <style>
+    body {
+      background-color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .receipt-wrapper {
+      display: flex;
+      justify-content: space-between;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .receipt {
+      flex: 1;
+      margin: 0 10px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f8f8f8;
+    }
+
+    .receipt-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 0;
+    }
+
+    .receipt-line {
+      margin: 10px 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+
+    .receipt-details {
+      margin-top: 20px;
+    }
+
+    .receipt-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: #000;
+    }
+
+    .receipt-label {
+      font-weight: bold;
+    }
+
+    .receipt-value::before {
+      content: "$";
+    }
+
+    .receipt-placeholder {
+      color: #999;
+    }
+
+    .receipt-red {
+      color: #f00;
+    }
+
+    .chart-container {
+      width: 400px;
+      height: 300px;
+      margin: 20px auto;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="receipt-wrapper">
+    <div id="receipt-taxes-now" class="receipt">
+      <h2 class="receipt-title">Taxes Now</h2>
+      <hr class="receipt-line">
+      <div class="receipt-details">
+        <div class="receipt-item">
+          <span class="receipt-label">Tax Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="taxAmountNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Carbon Tax Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="carbonTaxAmountNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Federal Excise Tax:</span>
+          <span class="receipt-value receipt-placeholder" id="fedExciseTaxNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">PST Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="pstAmountNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">GST Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="gstAmountNow">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Payment Amount:</span>
+          <span class="receipt-value receipt-placeholder" id="paymentAmountNow">0.00</span>
+        </div>
+      </div>
+    </div>
+    <div id="receipt-taxes-future" class="receipt">
+      <h2 class="receipt-title">Gas Taxes in 2030</h2>
+      <hr class="receipt-line">
+      <div class="receipt-details">
+        <div class="receipt-item">
+          <span class="receipt-label">Tax Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="taxAmountFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Carbon Tax Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="carbonTaxAmountFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Federal Excise Tax:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="fedExciseTaxFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">PST Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="pstAmountFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">GST Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="gstAmountFuture">0.00</span>
+        </div>
+        <div class="receipt-item">
+          <span class="receipt-label">Payment Amount:</span>
+          <span class="receipt-value receipt-placeholder receipt-red" id="paymentAmountFuture">0.00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-container">
+    <canvas id="taxChart"></canvas>
+  </div>
+
+  <script>
+
+    chart = new Chart(document.getElementById('taxChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ["2023", "2030"],
+            datasets: [
+                {
+                    label: 'Carbon Taxes',
+                    data: [17, 48],
+                    backgroundColor: 'red',
+                },
+                {
+                    label: 'Provincial Excise Tax',
+                    data: [13, 13],
+                    backgroundColor: 'yellow',
+                },
+                {
+                    label: 'Federal Excise Tax',
+                    data: [10, 10],
+                    backgroundColor: 'orange',
+                },
+                {
+                    label: 'PST',
+                    data: [0, 0],
+                    backgroundColor: 'green',
+                },
+                {
+                    label: 'GST',
+                    data: [7.5, 7.5],
+                    backgroundColor: 'purple',
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Carbon Taxes 2023 vs 2030',
+                    font: {
+                        size: 14
+                    }
+                },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
+    });
+    </script>
+
+</body>
+</html>
