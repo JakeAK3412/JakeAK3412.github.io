@@ -1,6 +1,6 @@
 
 function calculateCarbonTax(selectedProvince, isDiesel){
-      if(selectedProvince == "QC"){
+      if(selectedProvince == "QC" || selectedProvince == "MTL"){
         if (isDiesel){
           return 0.125;
         }
@@ -18,7 +18,61 @@ function calculateCarbonTax(selectedProvince, isDiesel){
       }
 }
 
+function calculateSecondCarbonTax(selectedProvince, isDiesel){
+    if (selectedProvince == "BC"){
+      if (isDiesel){
+        return 0.20;
+      }
+      else{
+        return 0.17;
+      }
+    }
 
+    else if (selectedProvince == "NB"){
+      return 0.08;
+      }
+
+    else if (selectedProvince == "NL" || selectedProvince == "NS"){
+      if (isDiesel){
+        return 0.037;
+      }
+      else{
+        return 0.042;
+      }
+    }
+
+    else if (selectedProvince == "PE"){
+      if (isDiesel){
+        return 0.04;
+      }
+      else{
+        return 0.033;
+      }
+    }
+
+    else{
+      return 0;
+    }
+
+
+}
+
+
+function calculateTransitTax(litreAmount, selectedProvince){
+  if (selectedProvince == "VAN"){
+    return litreAmount * 0.185;
+  }
+  else if (selectedProvince == "VIC"){
+    return litreAmount * 0.085;
+  }
+  else if (selectedProvince == "MTL"){
+    return litreAmount * 0.03;
+  }
+  else{
+    return 0;
+  }
+}
+   
 function calculateDiesel(litreAmount, selectedProvince) {
   // Define the tax rates for each province (in decimal format)
   var taxRates = {
@@ -32,6 +86,9 @@ function calculateDiesel(litreAmount, selectedProvince) {
     PE: 0.142, // Prince Edward Island
     QC: 0.202, // Quebec
     SK: 0.15, // Saskatchewan
+    VAN: 0.09, // Vancouver
+    VIC: 0.15, // Victoria
+    MTL: 0.202, // Montreal
   };
 
   // Get the tax rate based on the selected province
@@ -57,6 +114,9 @@ function calculateRegular(litreAmount, selectedProvince) {
     PE: 0.12, // Prince Edward Island
     QC: 0.192, // Quebec
     SK: 0.15, // Saskatchewan
+    VAN: 0.085, // Vancouver
+    VIC: 0.145, // Victoria
+    MTL: 0.192, // Montreal
   };
 
   // Get the tax rate based on the selected province
@@ -95,12 +155,14 @@ function calculateTax() {
     console.log(selectedProvince);
     taxAmount = calculateDiesel(litreAmount, selectedProvince);
     carbonTaxAmount = calculateCarbonTax(selectedProvince, true);
+    secondCarbonTaxAmount = calculateSecondCarbonTax(selectedProvince, true);
     fedExciseAmount = 0.04;
   } else if (document.getElementById("regular").checked) {
     console.log("Regular");
     litreAmount = litreAmounts[selectedVehicle];
     taxAmount = calculateRegular(litreAmount, selectedProvince);
     carbonTaxAmount = calculateCarbonTax(selectedProvince, false);
+    secondCarbonTaxAmount = calculateSecondCarbonTax(selectedProvince, false);
     fedExciseAmount = 0.10;
   } else {
     console.log("else");
@@ -114,12 +176,16 @@ function calculateTax() {
   
   document.getElementById("taxAmount").textContent = "Provincial Excise Tax: $" + taxAmount.toFixed(2);
   document.getElementById("carbonTaxAmount").textContent = "Carbon Tax: $" + (litreAmount * carbonTaxAmount).toFixed(2);
+  document.getElementById("secondCarbonTax").textContent = "Second Carbon Tax: $" + (litreAmount * secondCarbonTaxAmount).toFixed(2);
   document.getElementById("fedExciseTax").textContent = "Federal Excise Tax: $" + (litreAmounts[selectedVehicle] * fedExciseAmount).toFixed(2);
+  document.getElementById("transitTax").textContent = "Transit Tax: $" + calculateTransitTax(litreAmount, selectedProvince).toFixed(2);
   document.getElementById("paymentAmount").textContent = "Total: $" + (dollarAmount + taxAmount).toFixed(2);
 
   document.getElementById("taxAmount2030").textContent = "Provincial Excise Tax: $" + taxAmount.toFixed(2);
   document.getElementById("carbonTaxAmount2030").textContent = "Carbon Tax: $" + (litreAmount * carbonTaxAmount2030).toFixed(2);
+  document.getElementById("secondCarbonTax2030").textContent = "Second Carbon Tax: $" + (litreAmount * 0.17).toFixed(2);
   document.getElementById("fedExciseTax2030").textContent = "Federal Excise Tax: $" + (litreAmounts[selectedVehicle] * fedExciseAmount).toFixed(2);
+  document.getElementById("transitTax2030").textContent = "Transit Tax: $" + calculateTransitTax(litreAmount, selectedProvince).toFixed(2);
   document.getElementById("paymentAmount2030").textContent = "Total: $" + (dollarAmount + taxAmount).toFixed(2);
 
 
