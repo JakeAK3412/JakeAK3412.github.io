@@ -84,7 +84,7 @@ for chat in st.session_state.chat_history:
 
 
 #Get the chain, cached so we get memory of the conversation (and I save money on openai)
-chain = get_chain("saskBudget2023-24.pdf")
+chain = get_chain(first_argument)
 
 #Get the user input - due to the nature of streamlit, this will essentially run in a loop
 if user_input := st.chat_input("Ask a question"):
